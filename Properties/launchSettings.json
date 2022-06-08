@@ -2,7 +2,7 @@
   "profiles": {
     "DestinyOSTListGen": {
       "commandName": "Project",
-      "commandLineArgs": "\"E:\\\\DestinyMusic\\\\TWQBnks\" -h"
+      "commandLineArgs": "\"E:\\\\DestinyMusic\\\\TWQBnks\" -c"
     }
   }
 }

@@ -86,17 +86,38 @@ namespace DestinyOSTListGen
                     Console.WriteLine("Old_OSTs.db does not exist.");
                     return 0;
                 }
-                List<string> GinsorID_Diff = new List<string>();
+                List<string> GinsorID_New = new List<string>();
+                List<string> GinsorID_Removed = new List<string>();
                 string[] Old_OSTs_Lines;
                 Old_OSTs_Lines = await File.ReadAllLinesAsync("OSTs.db.old");
                 foreach (string new_ginsid in UniqueGinsorIDs)
                 {
                     if (!Old_OSTs_Lines.Contains(new_ginsid))
                     {
-                        Console.WriteLine($"New GinsorID: {new_ginsid}");
-                        GinsorID_Diff.Add(new_ginsid);
+                        //Console.WriteLine($"New GinsorID: {new_ginsid}");
+                        GinsorID_New.Add(new_ginsid);
+                    }
+                    
+                }
+                foreach (string old_ginsid in Old_OSTs_Lines)
+                {
+                    if (!UniqueGinsorIDs.Contains(old_ginsid))
+                    {
+                        //Console.WriteLine($"Old GinsorID {old_ginsid} does not exist in new list.");
+                        GinsorID_Removed.Add(old_ginsid);
                     }
                 }
+
+                foreach (string removed_ginsid in GinsorID_Removed)
+                {
+                    Console.WriteLine($"GinsorID {removed_ginsid} does not exist in new list.");
+                }
+                await File.WriteAllLinesAsync("Removed_GinsorIDs.txt", GinsorID_Removed);
+                foreach (string added_ginsid in GinsorID_New)
+                {
+                    Console.WriteLine($"GinsorID {added_ginsid} was added.");
+                }
+                await File.WriteAllLinesAsync("Added_GinsorIDs.txt", GinsorID_New);
             }
 
             return 0;
