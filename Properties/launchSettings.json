@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "gen_music_list": {
+      "commandName": "Project",
+      "commandLineArgs": "--compare"
+    }
+  }
+}

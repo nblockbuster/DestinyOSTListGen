@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32328.378
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gen_music_list", "gen_music_list.csproj", "{0D48CAF5-A3B6-4227-BEED-849CD832E962}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DestinyMusicViewer", "..\DestinyMusicViewer\DestinyMusicViewer.csproj", "{61AFE96A-802C-47C0-8425-4D78974C067F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WwiseParserLib", "..\WwiseParser\WwiseParserLib\WwiseParserLib.csproj", "{5AA52DCE-6636-420F-A38B-777A715EA2DB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0D48CAF5-A3B6-4227-BEED-849CD832E962}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D48CAF5-A3B6-4227-BEED-849CD832E962}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D48CAF5-A3B6-4227-BEED-849CD832E962}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D48CAF5-A3B6-4227-BEED-849CD832E962}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61AFE96A-802C-47C0-8425-4D78974C067F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61AFE96A-802C-47C0-8425-4D78974C067F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61AFE96A-802C-47C0-8425-4D78974C067F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61AFE96A-802C-47C0-8425-4D78974C067F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5AA52DCE-6636-420F-A38B-777A715EA2DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5AA52DCE-6636-420F-A38B-777A715EA2DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5AA52DCE-6636-420F-A38B-777A715EA2DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5AA52DCE-6636-420F-A38B-777A715EA2DB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6E9F8188-F0F5-481A-9B83-2171141EB744}
+	EndGlobalSection
+EndGlobal
