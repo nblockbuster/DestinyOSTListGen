@@ -1,8 +1,8 @@
 {
   "profiles": {
-    "gen_music_list": {
+    "DestinyOSTListGen": {
       "commandName": "Project",
-      "commandLineArgs": "--compare"
+      "commandLineArgs": "\"E:\\\\DestinyMusic\\\\TWQBnks\" -h"
     }
   }
 }

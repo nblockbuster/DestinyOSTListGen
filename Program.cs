@@ -5,14 +5,24 @@ using System.Net;
 using WwiseParserLib;
 
 
-namespace gen_music_list
+namespace DestinyOSTListGen
 {
     class Program
     {
         static async Task<int> Main(string [] args)
         {
+            if (args.Length == 0 || args.Contains("--help") || args.Contains("-h") || args.Contains("-?"))
+            {
+                Console.WriteLine("This program is used to generate a OSTs.db list of all GinsorIDs of music.");
+                Console.WriteLine("Usage: DestinyOSTListGen.exe {path-to-bnk-folder} [optional: --compare / -c]");
+                Console.WriteLine("\t--compare (-c):\tcompares OSTs.db.old to a freshly generated list.");
+                Console.WriteLine("\nxyx0826's WwiseParser is licensed under the MIT License.");
+                return 0;
+            }
+
+            string bnk_dir = args[0];
+
             List<string> GinsorIDs = new List<string>();
-            string bnk_dir = "E:\\DestinyMusic\\TWQBnks";
             foreach (string bnk in Directory.GetFiles(bnk_dir))
             {
                 byte[] soundBankData = File.ReadAllBytes(bnk);
@@ -64,6 +74,8 @@ namespace gen_music_list
             var UniqueGinsorIDs = GinsorIDs.Distinct();
             await File.WriteAllLinesAsync("OSTs.db", UniqueGinsorIDs);
             Console.WriteLine($"Music Track Amount: {UniqueGinsorIDs.Count()}");
+
+            
 
             if (args.Contains("--compare") || args.Contains("-c"))
             {
