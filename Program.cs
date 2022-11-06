@@ -34,6 +34,8 @@ namespace DestinyOSTListGen
 
             bool sfx = false;
 
+            File.WriteAllText("list_gen.log", string.Empty);
+            
             string outputTemplate = "{Timestamp:HH:mm:ss} [{Level}] [{SourceContext}] {Message:lj}{NewLine}{Exception}";
             Log.Logger = new LoggerConfiguration()
             .WriteTo.Console()
@@ -86,11 +88,12 @@ namespace DestinyOSTListGen
             else
             {
                 ext = new Extractor(bnk_or_pkgs_dir, LoggerLevels.HighVerbouse);
-                _ = Parallel.ForEach(ext.master_packages_stream(), package =>
+                var st = ext.master_packages_stream();
+                foreach (Package package in st)
                 {
                     if (!package.no_patch_id_name.Contains("audio") && !package.no_patch_id_name.Contains("_en_"))
                     {
-                        return;
+                        continue;
                     }
                     foreach (var entry in package.entry_table())
                     {
@@ -108,7 +111,7 @@ namespace DestinyOSTListGen
                             }
                         }
                     }
-                });
+                }
             }
             GC.Collect();
             if (GinsorIDs.Count == 0)

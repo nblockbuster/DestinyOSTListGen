@@ -32,17 +32,17 @@ namespace Tiger
             }
         }
 
-        public ConcurrentDictionary<string, IList<Package>> packages_lookup_table =
-            new ConcurrentDictionary<string, IList<Package>>();
+        public Dictionary<string, List<Package>> packages_lookup_table =
+            new Dictionary<string, List<Package>>();
         
-        public ConcurrentDictionary<uint, IList<Package>> packages_id_lookup_table =
-            new ConcurrentDictionary<uint, IList<Package>>();
+        public Dictionary<uint, List<Package>> packages_id_lookup_table =
+            new Dictionary<uint, List<Package>>();
 
         public bool verbouse { get; set; }
 
-        private ConcurrentDictionary<uint, string> string_lookup_table_holder;
-        private IList<ConcurrentDictionary<uint, string>> investment_globals_strings_holder;
-        private ConcurrentDictionary<uint, string> client_startup_strings_holder;
+        private Dictionary<uint, string> string_lookup_table_holder;
+        private List<Dictionary<uint, string>> investment_globals_strings_holder;
+        private Dictionary<uint, string> client_startup_strings_holder;
 
         /// <summary>
         /// The main constructor to the extractor class
@@ -55,7 +55,7 @@ namespace Tiger
             this.PackagesPath = packages_path;
 
             //Check if the depenedencies are present, and if they're not all present, then extract them
-            IList<string> dependencies = new List<string>() { "oo2core_9_win64.dll" };
+            List<string> dependencies = new List<string>() { "oo2core_9_win64.dll" };
             foreach (string dependency in dependencies)
             {
                 string filepath = Path.Join(Directory.GetCurrentDirectory(), dependency);
@@ -77,7 +77,7 @@ namespace Tiger
         /// </summary>
         /// <remarks>A master package is one with the highest patch id amongst all of the other packages sharing the same package id</remarks>
         /// <returns>A list of strings of the master package names</returns>
-        public IList<string> master_packages_names()
+        public List<string> master_packages_names()
         {
             ConcurrentBag<string> mpkg_names = new ConcurrentBag<string>();
 
@@ -96,18 +96,15 @@ namespace Tiger
         /// arguemnt is set to 'audio' then only packages with the name audio will be returned
         /// </param>
         /// <returns>A generator or an IEnumerable of Package objects</returns>
-        public IEnumerable<Package> master_packages_stream(string specific_package = null)
+        public IEnumerable<Package> master_packages_stream(string? specific_package = null)
         {
-            //_ = Parallel.ForEach(packages_id_lookup_table, id_package_pair =>
-            //{
-            foreach (KeyValuePair<uint, IList<Package>> id_package_pair in packages_id_lookup_table)
+            foreach (KeyValuePair<uint, List<Package>> id_package_pair in packages_id_lookup_table)
             {
                 if (specific_package == null || id_package_pair.Value[^1].name.Contains(specific_package))
                 {
                     yield return id_package_pair.Value[^1];
                 }
             }
-            //});
         }
 
         /// <summary>
@@ -124,7 +121,7 @@ namespace Tiger
         /// }
         /// Thus, the master package is the package always at the end
         /// </remarks>
-        private ConcurrentDictionary<string, IList<Package>> generate_packages_dictionary()
+        private Dictionary<string, List<Package>> generate_packages_dictionary()
         {
             Logger.log("Obtaining the names of the master packages names dictionary", LoggerLevels.HighVerbouse);
 
@@ -133,10 +130,10 @@ namespace Tiger
 
             Logger.log($"{package_names.Count()} packages found in the packages path", LoggerLevels.HighVerbouse);
 
-            ConcurrentDictionary<string, IList<Package>> package_lookup_temp = new ConcurrentDictionary<string, IList<Package>>();
+            Dictionary<string, List<Package>> package_lookup_temp = new Dictionary<string, List<Package>>();
 
             //Adding all of the packages to the dictionary 
-            Parallel.ForEach(package_names, package_name =>
+            foreach (string package_name in package_names)
             {
                 string package_name_no_patch_id = Utils.remove_patch_id_from_name(package_name);
                 if (!package_lookup_temp.ContainsKey(package_name_no_patch_id))
@@ -145,11 +142,12 @@ namespace Tiger
                 Package package = new Package(packages_path, package_name);
 
                 package_lookup_temp[package_name_no_patch_id].Add(new Package(packages_path, package_name));
-            });
+            }
 
             //Sorting the packages inside the dictionary in order of the patch_id, so that its [0, 1, 2, .....] so the 
             //packages are ordered in ascending order.
-            Parallel.ForEach(package_lookup_temp, dictionary_entry =>
+            //Parallel.ForEach(package_lookup_temp, dictionary_entry =>
+            foreach (var dictionary_entry in package_lookup_temp)
             {
                 // Sorting the entries according to their patch IDs
                 //dictionary_entry.Value.Sort((x, y) => x.patch_id.CompareTo(y.patch_id));
@@ -162,9 +160,7 @@ namespace Tiger
                 // Adding a NULL for the missing patch ids
                 foreach (int missing_patch_id in missing_patch_ids)
                     dictionary_entry.Value.Insert(missing_patch_id, null);
-            });
-
-
+            }
 
             return package_lookup_temp;
         }
@@ -185,14 +181,15 @@ namespace Tiger
         /// </code>
         /// Thus, the master package is the package always at the end
         /// </remarks>
-        private ConcurrentDictionary<uint, IList<Package>> generate_packages_id_lookup_table()
+        private Dictionary<uint, List<Package>> generate_packages_id_lookup_table()
         {
-            ConcurrentDictionary<uint, IList<Package>> temp_lookup = new ConcurrentDictionary<uint, IList<Package>>();
+            Dictionary<uint, List<Package>> temp_lookup = new Dictionary<uint, List<Package>>();
 
-            Parallel.ForEach(packages_lookup_table, dictionary_entry =>
+            //Parallel.ForEach(packages_lookup_table, dictionary_entry =>
+            foreach (var dictionary_entry in packages_lookup_table)
             {
                 temp_lookup[dictionary_entry.Value[^1].package_id] = dictionary_entry.Value;
-            });
+            }
 
             return temp_lookup;
         }
@@ -299,13 +296,11 @@ namespace Tiger
         /// <param name="entry_index">The index of the entry to extract</param>
         public Parsers.ParsedFile extract_entry_data(Package package, int entry_index)
         {
-            //Logger.log($"index {entry_index} in package {package.path}", LoggerLevels.HighVerbouse);
             Formats.Entry entry = package.entry_table()[entry_index];
 
             uint current_block_index = entry.starting_block;
             uint last_block_index = current_block_index + entry.block_count();
             uint loaded_block_index = 0xFFFFFFFF;
-            //Logger.log("1", LoggerLevels.HighVerbouse);
             List<byte> extracted_data = new List<byte>();
             while (current_block_index < last_block_index)
             {
@@ -334,7 +329,6 @@ namespace Tiger
                     current_block_index++;
                 }
             }
-            //Logger.log("2", LoggerLevels.HighVerbouse);
             return new Parsers.ParsedFile("bin", extracted_data.ToArray(), package.package_id, (uint)entry_index);
         }
 
