@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "DestinyOSTListGen": {
-      "commandName": "Project",
-      "commandLineArgs": "\"E:\\\\DestinyMusic\\\\AllBnks\""
-    }
-  }
-}
