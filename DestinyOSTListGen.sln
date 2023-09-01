@@ -4,10 +4,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.1.32328.378
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DestinyOSTListGen", "DestinyOSTListGen.csproj", "{0D48CAF5-A3B6-4227-BEED-849CD832E962}"
+	ProjectSection(ProjectDependencies) = postProject
+		{60786CC4-4738-4422-A49B-24AAAC8D35D8} = {60786CC4-4738-4422-A49B-24AAAC8D35D8}
+	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WwiseParserLib", "..\WwiseParser\WwiseParserLib\WwiseParserLib.csproj", "{5AA52DCE-6636-420F-A38B-777A715EA2DB}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tiger", "D:\Tiger-master\Tiger\Tiger.csproj", "{5E06438F-6499-4948-8C85-0CF5C27149A0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WwiseParserLib", "..\WwiseParser\WwiseParserLib\WwiseParserLib.csproj", "{60786CC4-4738-4422-A49B-24AAAC8D35D8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,22 +26,14 @@ Global
 		{0D48CAF5-A3B6-4227-BEED-849CD832E962}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0D48CAF5-A3B6-4227-BEED-849CD832E962}.Release|x64.ActiveCfg = Release|Any CPU
 		{0D48CAF5-A3B6-4227-BEED-849CD832E962}.Release|x64.Build.0 = Release|Any CPU
-		{5AA52DCE-6636-420F-A38B-777A715EA2DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5AA52DCE-6636-420F-A38B-777A715EA2DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5AA52DCE-6636-420F-A38B-777A715EA2DB}.Debug|x64.ActiveCfg = Debug|x64
-		{5AA52DCE-6636-420F-A38B-777A715EA2DB}.Debug|x64.Build.0 = Debug|x64
-		{5AA52DCE-6636-420F-A38B-777A715EA2DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5AA52DCE-6636-420F-A38B-777A715EA2DB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5AA52DCE-6636-420F-A38B-777A715EA2DB}.Release|x64.ActiveCfg = Release|x64
-		{5AA52DCE-6636-420F-A38B-777A715EA2DB}.Release|x64.Build.0 = Release|x64
-		{5E06438F-6499-4948-8C85-0CF5C27149A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5E06438F-6499-4948-8C85-0CF5C27149A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5E06438F-6499-4948-8C85-0CF5C27149A0}.Debug|x64.ActiveCfg = Debug|x64
-		{5E06438F-6499-4948-8C85-0CF5C27149A0}.Debug|x64.Build.0 = Debug|x64
-		{5E06438F-6499-4948-8C85-0CF5C27149A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5E06438F-6499-4948-8C85-0CF5C27149A0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5E06438F-6499-4948-8C85-0CF5C27149A0}.Release|x64.ActiveCfg = Release|x64
-		{5E06438F-6499-4948-8C85-0CF5C27149A0}.Release|x64.Build.0 = Release|x64
+		{60786CC4-4738-4422-A49B-24AAAC8D35D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60786CC4-4738-4422-A49B-24AAAC8D35D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60786CC4-4738-4422-A49B-24AAAC8D35D8}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{60786CC4-4738-4422-A49B-24AAAC8D35D8}.Debug|x64.Build.0 = Debug|Any CPU
+		{60786CC4-4738-4422-A49B-24AAAC8D35D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60786CC4-4738-4422-A49B-24AAAC8D35D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60786CC4-4738-4422-A49B-24AAAC8D35D8}.Release|x64.ActiveCfg = Release|Any CPU
+		{60786CC4-4738-4422-A49B-24AAAC8D35D8}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
